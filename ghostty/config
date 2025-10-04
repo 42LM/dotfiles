@@ -1,0 +1,38 @@
+custom-shader = shaders/cursor_blaze.glsl
+theme = dark:Solarized Dark Patched,light:primary
+
+font-family = Fira Code iScript
+font-size = 14
+font-feature = -zero
+font-feature = -ss02
+font-feature = -ss03
+font-feature = -ss04
+font-feature = -ss05
+font-feature = -calt
+
+# https://ghostty.org/docs/config/reference#macos-titlebar-proxy-icon
+macos-titlebar-proxy-icon = hidden
+# https://ghostty.org/docs/config/reference#background-opacity
+# background-opacity = 0.5
+background-opacity = 1
+# https://ghostty.org/docs/config/reference#background-blur-radius
+# background-blur-radius = 10
+background-blur-radius = 30
+# https://ghostty.org/docs/config/reference#selection-invert-fg-bg
+selection-invert-fg-bg
+
+# https://ghostty.org/docs/config/reference#cursor-style
+# required
+shell-integration-features = no-cursor
+cursor-style = bar
+cursor-color = DC322F
+cursor-text = 000
+adjust-cursor-thickness = 8
+adjust-cursor-height = -8
+
+# macos-titlebar-style = hidden
+font-thicken
+
+window-padding-x = 10,10
+window-padding-y = 5,5
+keybind = shift+enter=text:\x1b\r

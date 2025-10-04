@@ -1,0 +1,41 @@
+-- -- CTRL+SPACE opens the completion window
+-- require('blink.cmp').setup({
+--   signature = { enabled = true },
+--   keymap = {
+--     -- This preset is recommended when using <Tab>/<S-Tab> for completion.
+--     -- It sets up basic keymaps like <Enter> for accept.
+--     preset = "enter",
+--     -- Map <Tab> to cycle forward, accept snippet, or fallback to a real tab
+--     ['<Tab>'] = {
+--       'select_next',     -- 1. Select the next item in the completion menu
+--       'snippet_forward', -- 2. If no menu, jump to the next snippet placeholder
+--       'fallback',        -- 3. If nothing above runs, insert a literal tab character
+--     },
+--
+--     -- Map <S-Tab> to cycle backward, go back in snippet
+--     ['<S-Tab>'] = {
+--       'select_prev',      -- 1. Select the previous item in the completion menu
+--       'snippet_backward', -- 2. If no menu, jump to the previous snippet placeholder
+--       'fallback',         -- 3. If nothing above runs, do nothing (or a fallback action)
+--     },
+--
+--     -- 👇 KEYMAP TO SHOW DOCUMENTATION MANUALLY
+--     -- This is a great fallback key if it doesn't show automatically
+--     ['<S-k>'] = { 'show_documentation', 'fallback' },
+--   },
+--
+--   -- This is optional but can make <Tab> feel more natural:
+--   -- 'auto_insert' means selecting an item automatically inserts it.
+--   -- 'manual' means you must hit a key (like <Enter>) to insert it.
+--   completion = {
+--     list = {
+--       selection = {
+--         preselect = false,    -- Set to false to prevent pre-selecting the first item
+--       },
+--     },
+--     documentation = {
+--       auto_show = true,
+--       auto_show_delay_ms = 100, -- default is 500
+--     },
+--   },
+-- })
