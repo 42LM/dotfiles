@@ -22,7 +22,7 @@ vim.diagnostic.config({
   -- },
 })
 
--- ONLY NEEDED WHEN NOT USING BLINK
+-- ONLY NEEDED WHEN NOT USING BLINK {{{
 -- Experimental setup using native neovim completion
 -- this limits to only being able to use ONE source for the completion list
 -- CTRL+n is for regular text and CTRL+space is for LSP
@@ -66,6 +66,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
   end,
 })
+
+-- 🚨 HACKY
+-- Set border for the additional info of a completion list item
+vim.api.nvim_create_autocmd('CompleteChanged', {
+  callback = function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      local config = vim.api.nvim_win_get_config(win)
+      if config.relative ~= '' then
+        local buf = vim.api.nvim_win_get_buf(win)
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+        local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf })
+        
+        -- Only apply border to completion info window
+        if buf_name == '' and buftype == 'nofile' then
+          pcall(vim.api.nvim_win_set_config, win, {
+            relative = config.relative,
+            win = config.win,
+            anchor = config.anchor,
+            width = config.width,
+            height = config.height,
+            row = config.row,
+            col = config.col,
+            border = vim.o.winborder, -- vim.o.winborder is set in init.lua
+          })
+        end
+      end
+    end
+  end,
+})
+-- }}}
 
 -- RUST
 vim.lsp.config('rust_analyzer', {
