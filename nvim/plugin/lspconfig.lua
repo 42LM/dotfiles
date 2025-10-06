@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd('CompleteChanged', {
         local buf = vim.api.nvim_win_get_buf(win)
         local buf_name = vim.api.nvim_buf_get_name(buf)
         local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf })
-        
+
         -- Only apply border to completion info window
         if buf_name == '' and buftype == 'nofile' then
           pcall(vim.api.nvim_win_set_config, win, {
@@ -109,6 +109,17 @@ vim.lsp.config('rust_analyzer', {
 })
 vim.lsp.enable('rust_analyzer')
 
+-- format on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rs",
+  callback = function()
+    local clients = vim.lsp.get_clients({ bufnr = 0, name = "rust_analyzer" })
+    if #clients > 0 then
+      vim.lsp.buf.format({ async = false })
+    end
+  end
+})
+
 -- GO
 -- TODO: Get staticcheck and gofumpt to work!!!
 -- https://go.dev/gopls/editor/vim#neovim-config
@@ -125,6 +136,7 @@ vim.lsp.config('gopls', {
 })
 vim.lsp.enable('gopls')
 
+-- format on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",
   callback = function()
