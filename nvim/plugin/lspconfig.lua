@@ -5,21 +5,13 @@ vim.diagnostic.config({
     -- border = 'single', -- Optional: adds a border to the window set in init.lua
   },
   jump = {
-    -- - ⚠️ WARNING opts.jump.float is deprecated. Feature will be removed in Nvim 0.14
-    -- - ADVICE:
-    -- - use opts.jump.on_jump instead.
-    -- - stack traceback:
-    --     /Users/l7c3/.config/nvim/plugin/lspconfig.lua:2
-    float = true,
+    on_jump = function(diagnostic, bufnr, lnum, col)
+      -- Small delay to ensure we're at the new position before opening float
+      vim.schedule(function()
+        vim.diagnostic.open_float()
+      end)
+    end,
   },
-  -- TODO: FIX :S
-  -- jump = {
-  --   on_jump = function()
-  --     -- Open the floating window for the current diagnostic.
-  --     -- Right now this also happens to close the diagnostics floating window when it has been open before.
-  --     vim.diagnostic.open_float()
-  --   end,
-  -- },
 })
 
 -- ONLY NEEDED WHEN NOT USING BLINK {{{
