@@ -62,6 +62,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- 🚨 HACKY
 -- Set border for the additional info of a completion list item
 vim.api.nvim_create_autocmd('CompleteChanged', {
+
   callback = function()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       local config = vim.api.nvim_win_get_config(win)
@@ -88,6 +89,22 @@ vim.api.nvim_create_autocmd('CompleteChanged', {
   end,
 })
 -- }}}
+
+-- ensure trailing whitespace is removed on every save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("LspFormatRust", { clear = true }),
+  pattern = "*", -- Apply this to all files, or use "*.rs" to limit it
+  callback = function()
+    -- :%s/\s\+$//e
+    -- %: operate on all lines
+    -- s: substitute
+    -- \s\+: one or more whitespace characters (space or tab)
+    -- $: at the end of the line
+    -- //: replace with nothing
+    -- e: suppress "Pattern not found" error if no trailing spaces exist
+    vim.cmd [[%s/\s\+$//e]]
+  end,
+})
 
 -- RUST
 vim.lsp.config('rust_analyzer', {
